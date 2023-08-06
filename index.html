@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>同じ言葉を指定した回数繰り返すプログラム</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    #generated_words {
+      white-space: nowrap; /* 改行を抑制する */
+      display: flex; /* 子要素を横並びにする */
+    }
+
+    #generated_words span {
+      display: inline; /* span要素を横並びにする */
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <label for="wordInput">繰り返す言葉:</label>
+    <input type="text" id="wordInput" />
+  </div>
+
+  <div>
+    <label for="countInput">繰り返す回数:</label>
+    <input type="number" id="countInput" />
+  </div>
+
+  <button onclick="repeatWord()">繰り返す</button>
+  <button onclick="copyGeneratedWords()">生成された言葉をコピー</button>
+
+  <div id="generated_words"></div>
+
+  <script>
+    // JavaScriptのコードは修正しました
+
+    function repeatWord() {
+      var word = document.getElementById("wordInput").value;
+      var count = parseInt(document.getElementById("countInput").value);
+
+      var generatedWordsDiv = document.getElementById("generated_words");
+      generatedWordsDiv.innerHTML = ""; // 生成された言葉の表示をリセット
+
+      var generatedWords = "";
+      for (var i = 0; i < count; i++) {
+        generatedWords += word.replace(/\n/g, "") + " ";
+      }
+
+      generatedWordsDiv.innerText = generatedWords;
+    }
+
+    function copyGeneratedWords() {
+      var generatedWordsDiv = document.getElementById("generated_words");
+      var textToCopy = generatedWordsDiv.textContent; // 改行を含んでいる可能性があるのでtextContentを使う
+
+      if (textToCopy) {
+        // コピーの実行
+        try {
+          // 新しくtextareaを作成し、テキストをその中にコピーして選択する
+          var textarea = document.createElement("textarea");
+          textarea.value = textToCopy;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+
+          alert("生成された言葉がコピーされました！");
+        } catch (error) {
+          alert("コピー中にエラーが発生しました。手動でコピーしてください。");
+        }
+      } else {
+        alert("生成された言葉がありません。");
+      }
+    }
+  </script>
+</body>
+</html>
+
